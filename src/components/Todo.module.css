@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    width: 100%;
+
+    padding: 1rem;
+    background: var(--gray-400);
+    border-radius: 8px;
+    gap: 0.75rem;
+}
+
+.todoMain {
+    display: flex;
+    gap: 0.75rem;
+
+    align-items: flex-start;
+}
+
+.todoMain p {
+    padding-right: 1rem;
+}
+
+.todoCheck {
+    border: 1px solid var(--blue);
+    background: transparent;
+    border-radius: 50%;
+
+    width: 1rem;
+    height: 1rem;
+
+    padding: 0.25rem;
+}
+
+.todoCheck img {
+    background-size: cover;
+}
+
+.todoText {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--gray-100);
+}

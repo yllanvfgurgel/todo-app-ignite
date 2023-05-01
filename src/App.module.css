@@ -41,4 +41,57 @@
 .searchForm button:hover {
     background: var(--blue);
     transition: background 200ms ease;
-} 
+}
+
+.todos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.todosContainer {
+    margin-top: 4rem;
+}
+
+.todosInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.createdTodos {
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.createdTodos span {
+    color: var(--gray-200);
+    background-color: var(--gray-400);
+    padding: 2px 8px;
+    border-radius: 999px;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    margin-left: 0.4rem;
+}
+
+.completedTodos {
+    color: var(--purple);
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.completedTodos span {
+    color: var(--gray-200);
+    background-color: var(--gray-400);
+    padding: 2px 8px;
+    border-radius: 999px;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    margin-left: 0.4rem;
+}
