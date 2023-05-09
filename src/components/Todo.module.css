@@ -23,22 +23,20 @@
 }
 
 .todoCheck {
-    border: 1px solid var(--blue);
-    background: transparent;
-    border-radius: 50%;
-
-    width: 1rem;
-    height: 1rem;
-
-    padding: 0.25rem;
+    color: var(--blue);
 }
 
-.todoCheck img {
-    background-size: cover;
+.todoCheckDone {
+    color: var(--purple);
 }
 
 .todoText {
     font-size: 0.875rem;
     font-weight: 400;
     color: var(--gray-100);
+}
+
+.todoTextDashed {
+    text-decoration: line-through;
+    color: var(--gray-300);
 }

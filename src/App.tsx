@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FormEvent, useRef, useState } from 'react'
 
 import { Header } from './components/Header'
 import { PlusCircle } from 'phosphor-react'
@@ -38,8 +38,10 @@ const todoList: TodoInfo[] = [
 
 function App() {
   const [todos, setTodos] = useState<TodoInfo[]>(todoList);
+  const [newTodo, setNewTodo] = useState<string>("");
 
   const createdTodosCount = todos.length;
+  console.log(todos)
   const completedTodosCount = todos.filter(todo => todo.done).length;
 
   function handleChangeTodoStatus(id: number) {
@@ -53,12 +55,34 @@ function App() {
     setTodos(todosChanged);
   };
 
+  function handleDeleteTodo(id: number) {
+    const filteredTodoList = todos.filter(todo => todo.id !== id);
+
+    setTodos([...filteredTodoList]);
+  }
+
+  function handleCreateTodo(event: FormEvent) {
+    event?.preventDefault();
+    const todoToAdd: TodoInfo = {
+      description: newTodo,
+      done: false,
+      id: todos.length++
+    }
+
+    setTodos((state) => [...state, todoToAdd]);
+  }
+
   return (
     <>
       <Header />
       <div className={styles.wrapper}>
-        <form className={styles.searchForm}>
-          <input type="text" placeholder='Adicione uma nova tarefa' />
+        <form className={styles.searchForm} onSubmit={handleCreateTodo}>
+          <input 
+            value={newTodo} 
+            type="text" 
+            placeholder='Adicione uma nova tarefa' 
+            onChange={(event) => setNewTodo(event.target.value)} 
+          />
           <button type='submit'>
             Criar
             <PlusCircle size={20} />
@@ -75,8 +99,8 @@ function App() {
           </div>
           <div className={styles.todos}>
             {
-              todoList.map(todo => 
-                <Todo onChangeTodo={handleChangeTodoStatus} key={todo.id} todo={todo}/>
+              todos.map(todo => 
+                <Todo onChangeTodo={handleChangeTodoStatus} key={todo.id} todo={todo} onDeleteTodo={handleDeleteTodo}/>
               )
             }
           </div>
