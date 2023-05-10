@@ -66,7 +66,7 @@ function App() {
     const todoToAdd: TodoInfo = {
       description: newTodo,
       done: false,
-      id: todos.length++
+      id: todos.length + 1
     }
 
     setTodos((state) => [...state, todoToAdd]);
