@@ -1,50 +1,30 @@
-import { FormEvent, useRef, useState } from 'react'
+import { FormEvent, useState } from 'react'
+import { v4 as uuidV4 } from 'uuid'
 
 import { Header } from './components/Header'
 import { PlusCircle } from 'phosphor-react'
 import { Todo } from './components/Todo'
 
+import emptyListLogo from './assets/emptyList.svg'
+
 import './global.css'
 import styles from './App.module.css'
 
 export interface TodoInfo {
-  id: number;
+  id: string;
   description: string;
   done: boolean;
 }
 
-const todoList: TodoInfo[] = [
-  {
-    id: 1,
-    description: "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    done: false
-  },
-  {
-    id: 2,
-    description: "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    done: false
-  },
-  {
-    id: 3,
-    description: "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    done: false
-  },
-  {
-    id: 4,
-    description: "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    done: false
-  },
-]
-
 function App() {
-  const [todos, setTodos] = useState<TodoInfo[]>(todoList);
+  const [todos, setTodos] = useState<TodoInfo[]>([]);
   const [newTodo, setNewTodo] = useState<string>("");
 
   const createdTodosCount = todos.length;
   console.log(todos)
   const completedTodosCount = todos.filter(todo => todo.done).length;
 
-  function handleChangeTodoStatus(id: number) {
+  function handleChangeTodoStatus(id: string) {
     const todosChanged = todos.map(todo => {
       if(todo.id === id) {
         todo.done = !todo.done;
@@ -55,7 +35,7 @@ function App() {
     setTodos(todosChanged);
   };
 
-  function handleDeleteTodo(id: number) {
+  function handleDeleteTodo(id: string) {
     const filteredTodoList = todos.filter(todo => todo.id !== id);
 
     setTodos([...filteredTodoList]);
@@ -66,10 +46,11 @@ function App() {
     const todoToAdd: TodoInfo = {
       description: newTodo,
       done: false,
-      id: todos.length + 1
-    }
+      id: uuidV4()
+    };
 
     setTodos((state) => [...state, todoToAdd]);
+    setNewTodo("");
   }
 
   return (
@@ -97,13 +78,21 @@ function App() {
               Concluídas <span>{completedTodosCount} de {createdTodosCount}</span>
             </div>
           </div>
-          <div className={styles.todos}>
-            {
-              todos.map(todo => 
-                <Todo onChangeTodo={handleChangeTodoStatus} key={todo.id} todo={todo} onDeleteTodo={handleDeleteTodo}/>
-              )
-            }
-          </div>
+          {todos.length > 0 ?
+            <div className={styles.todos}>
+              {
+                todos.map(todo => 
+                  <Todo onChangeTodo={handleChangeTodoStatus} key={todo.id} todo={todo} onDeleteTodo={handleDeleteTodo}/>
+                )
+              }
+            </div>
+            :
+            <div className={styles.emptyTodos}>
+              <img src={emptyListLogo} />
+              <p className={styles.mainText}>Você ainda não tem tarefas cadastradas</p>
+              <p>Crie tarefas e organize seus itens a fazer</p>
+            </div>
+          }
         </div>
       </div>
       

@@ -5,8 +5,8 @@ import styles from './Todo.module.css'
 
 interface TodoProps {
     todo: TodoInfo;
-    onChangeTodo: (id: number) => void;
-    onDeleteTodo: (id: number) => void;
+    onChangeTodo: (id: string) => void;
+    onDeleteTodo: (id: string) => void;
 }
 
 export function Todo({todo, onChangeTodo, onDeleteTodo}: TodoProps) {
